@@ -15,10 +15,7 @@
    version="1.1"
    id="svg8"
    sodipodi:docname="seir.svg"
-   inkscape:version="0.92.4 (fd57863, 2020-04-02)"
-   inkscape:export-filename="/home/soroush/Documents/CellML/SEIR/models/seir.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   inkscape:version="0.92.4 (fd57863, 2020-04-02)">
   <defs
      id="defs2">
     <marker
@@ -199,10 +196,10 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.4665165"
-     inkscape:cx="388.52431"
+     inkscape:cx="782.93694"
      inkscape:cy="-2.1058258"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -226,7 +223,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
