@@ -1,6 +1,6 @@
-import setuptools
+from setuptools import setup
 
-setuptools.setup(
+setup(
     author='Alan Garny',
     author_email='a.garny@auckland.ac.nz',
     description='OpenCOR-based Python script to model Covid-19 using the SEIR model',
