@@ -17,16 +17,18 @@ From OpenCOR's ``Python Console`` window::
 
  !pip uninstall -y seir
 
-Run
+Use
 ---
 
 From OpenCOR's ``Python Console`` window::
 
  import seir
 
- m = seir.Model(300)  # Run for 300 days
- m.run()
+ m = seir.Model()
+ m.run()     # Run the simulation for 300 days by default.
+ m.run(150)  # Re-run the simulation for 150 days.
+ m.run(450)  # Re-run the simulation for 450 days.
 
-which should result in something like:
+For the first simulation, you should get something like:
 
 .. image:: res/screenshot.png

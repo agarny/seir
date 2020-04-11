@@ -13,15 +13,10 @@ class Model:
         self.simulation = oc.open_simulation(
             'https://raw.githubusercontent.com/ABI-Covid-19/seir/master/models/seir.sedml')
 
-        self.set_sim_duration(sim_duration)
-
-    def set_sim_duration(self, sim_duration):
-        # Set the duration of our SEIR simulation.
+    def run(self, sim_duration=300):
+        # Reset and run our SEIR simulation.
 
         self.simulation.data().set_ending_point(sim_duration)
-
-    def run(self):
-        # Reset and run our SEIR simulation.
 
         self.simulation.reset()  # In case another simulation had already been run.
         self.simulation.run()
