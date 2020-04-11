@@ -30,6 +30,6 @@ From OpenCOR's ``Python Console`` window::
  m.run(150)  # Re-run the simulation for 150 days.
  m.run(450)  # Re-run the simulation for 450 days.
 
-For the first simulation, you should get something like:
+For the first run, you should get something like:
 
 .. image:: res/screenshot.png
