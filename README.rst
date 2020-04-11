@@ -8,14 +8,14 @@ Install/upgrade
 
 From OpenCOR's ``Python Console`` window::
 
- !pip install --upgrade git+https://github.com/ABI-Covid-19/seir.git
+ !pip install -U git+https://github.com/ABI-Covid-19/seir.git
 
 Uninstall
 ---------
 
 From OpenCOR's ``Python Console`` window::
 
- !pip uninstall --yes seir
+ !pip uninstall -y seir
 
 Run
 ---
