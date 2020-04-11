@@ -22,9 +22,9 @@ Use
 
 From OpenCOR's ``Python Console`` window::
 
- import seir
+ import seir  # Import the SEIR module.
 
- m = seir.Model()
+ m = seir.Model()  # Create an instance of the SEIR model.
 
  m.run()  # Run the simulation for 300 days (default).
  m.run(150)  # Re-run the simulation for 150 days.
