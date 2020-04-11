@@ -22,7 +22,10 @@ Run
 
 From OpenCOR's ``Python Console`` window::
 
- import os, platform; exec(open(os.environ['PYTHONHOME'] + ('/Scripts' if (platform.system() == 'Windows') else '/bin') + '/seir.py').read())
+ import seir
+
+ m = seir.Model(300)  # Run for 300 days
+ m.run()
 
 which should result in something like:
 
