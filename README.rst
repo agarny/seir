@@ -8,22 +8,28 @@ Install/upgrade
 
 From OpenCOR's ``Python Console`` window::
 
- !pip install --upgrade git+https://github.com/ABI-Covid-19/seir.git
+ !pip install -U git+https://github.com/ABI-Covid-19/seir.git
 
 Uninstall
 ---------
 
 From OpenCOR's ``Python Console`` window::
 
- !pip uninstall --yes seir
+ !pip uninstall -y seir
 
-Run
+Use
 ---
 
 From OpenCOR's ``Python Console`` window::
 
- import os, platform; exec(open(os.environ['PYTHONHOME'] + ('/Scripts' if (platform.system() == 'Windows') else '/bin') + '/seir.py').read())
+ import seir  # Import the SEIR module.
 
-which should result in something like:
+ m = seir.Model()  # Create an instance of the SEIR model.
+
+ m.run()  # Run the simulation for 300 days (default).
+ m.run(150)  # Re-run the simulation for 150 days.
+ m.run(450)  # Re-run the simulation for 450 days.
+
+For the first run, you should get something like:
 
 .. image:: res/screenshot.png
