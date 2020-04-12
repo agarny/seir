@@ -14,6 +14,13 @@ class Model:
             'https://raw.githubusercontent.com/ABI-Covid-19/seir/master/models/seir.sedml')
 
     def run(self, sim_duration=300):
+        # Make sure that we were given a valid simulation duration.
+
+        if sim_duration <= 0:
+            print('The simulation duration (', sim_duration, ') must be greater than 0 (days).', sep='')
+
+            return
+
         # Reset and run our SEIR simulation.
 
         self.simulation.data().set_ending_point(sim_duration)
