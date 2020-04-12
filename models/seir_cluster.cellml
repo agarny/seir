@@ -1,0 +1,362 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="COVID_model" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units.cellml">
+        <units name="day" units_ref="day"/>
+        <units name="per_day" units_ref="per_day"/>
+    </import>
+    <import xlink:href="parameters.cellml">
+        <component component_ref="Parameters_AKL" name="Parameters_AKL"/>
+        <component component_ref="Parameters_HML" name="Parameters_HML"/>
+        <component component_ref="Parameters_TRG" name="Parameters_TRG"/>
+        <component component_ref="Parameters_WLG" name="Parameters_WLG"/>
+        <component component_ref="Parameters_CHC" name="Parameters_CHC"/>
+    </import>
+    <import xlink:href="seir_module.cellml">
+        <component component_ref="main" name="AKL"/>
+    </import>
+    <import xlink:href="seir_module.cellml">
+        <component component_ref="main" name="HML"/>
+    </import>
+    <import xlink:href="seir_module.cellml">
+        <component component_ref="main" name="TRG"/>
+    </import>
+    <import xlink:href="seir_module.cellml">
+        <component component_ref="main" name="WLG"/>
+    </import>
+    <import xlink:href="seir_module.cellml">
+        <component component_ref="main" name="CHC"/>
+    </import>
+    <component name="environment">
+        <variable name="time" public_interface="out" units="day"/>
+    </component>
+    <component name="NewZealand">
+        <variable name="R_NZ" public_interface="out" units="dimensionless"/>
+        <variable name="R_AKL" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_HML" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_WLG" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_TRG" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_CHC" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D_NZ" public_interface="out" units="dimensionless"/>
+        <variable name="D_AKL" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D_HML" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D_WLG" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D_TRG" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D_CHC" private_interface="in" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>R_NZ</ci>
+                <apply>
+                    <plus/>
+                    <ci>R_AKL</ci>
+                    <ci>R_HML</ci>
+                    <ci>R_WLG</ci>
+                    <ci>R_TRG</ci>
+                    <ci>R_CHC</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>D_NZ</ci>
+                <apply>
+                    <plus/>
+                    <ci>D_AKL</ci>
+                    <ci>D_HML</ci>
+                    <ci>D_WLG</ci>
+                    <ci>D_TRG</ci>
+                    <ci>D_CHC</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="Auckland">
+        <variable name="S" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="E" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_p" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="IFR" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="beta" private_interface="in" public_interface="out" units="per_day"/>
+    </component>
+    <component name="Hamilton">
+        <variable name="S" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="E" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_p" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="IFR" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="beta" private_interface="in" public_interface="out" units="per_day"/>
+    </component>
+    <component name="Tauranga">
+        <variable name="S" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="E" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_p" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="IFR" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="beta" private_interface="in" public_interface="out" units="per_day"/>
+    </component>
+    <component name="Wellington">
+        <variable name="S" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="E" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_p" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="IFR" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="beta" private_interface="in" public_interface="out" units="per_day"/>
+    </component>
+    <component name="Christchurch">
+        <variable name="S" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="E" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_p" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="I" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R_c" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="R" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="D" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="IFR" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="beta" private_interface="in" public_interface="out" units="per_day"/>
+    </component>
+    <connection>
+        <map_components component_1="Parameters_AKL" component_2="AKL"/>
+        <map_variables variable_1="N" variable_2="N"/>
+        <map_variables variable_1="IFR_0" variable_2="IFR_0"/>
+        <map_variables variable_1="IFR_1" variable_2="IFR_1"/>
+        <map_variables variable_1="epsilon" variable_2="epsilon"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="delta" variable_2="delta"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="c" variable_2="c"/>
+        <map_variables variable_1="n_ICU" variable_2="n_ICU"/>
+        <map_variables variable_1="p_ICU" variable_2="p_ICU"/>
+        <map_variables variable_1="R_0" variable_2="R_0"/>
+    </connection>
+    <connection>
+        <map_components component_1="Parameters_HML" component_2="HML"/>
+        <map_variables variable_1="N" variable_2="N"/>
+        <map_variables variable_1="IFR_0" variable_2="IFR_0"/>
+        <map_variables variable_1="IFR_1" variable_2="IFR_1"/>
+        <map_variables variable_1="epsilon" variable_2="epsilon"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="delta" variable_2="delta"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="c" variable_2="c"/>
+        <map_variables variable_1="n_ICU" variable_2="n_ICU"/>
+        <map_variables variable_1="p_ICU" variable_2="p_ICU"/>
+        <map_variables variable_1="R_0" variable_2="R_0"/>
+    </connection>
+    <connection>
+        <map_components component_1="Parameters_TRG" component_2="TRG"/>
+        <map_variables variable_1="N" variable_2="N"/>
+        <map_variables variable_1="IFR_0" variable_2="IFR_0"/>
+        <map_variables variable_1="IFR_1" variable_2="IFR_1"/>
+        <map_variables variable_1="epsilon" variable_2="epsilon"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="delta" variable_2="delta"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="c" variable_2="c"/>
+        <map_variables variable_1="n_ICU" variable_2="n_ICU"/>
+        <map_variables variable_1="p_ICU" variable_2="p_ICU"/>
+        <map_variables variable_1="R_0" variable_2="R_0"/>
+    </connection>
+    <connection>
+        <map_components component_1="Parameters_WLG" component_2="WLG"/>
+        <map_variables variable_1="N" variable_2="N"/>
+        <map_variables variable_1="IFR_0" variable_2="IFR_0"/>
+        <map_variables variable_1="IFR_1" variable_2="IFR_1"/>
+        <map_variables variable_1="epsilon" variable_2="epsilon"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="delta" variable_2="delta"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="c" variable_2="c"/>
+        <map_variables variable_1="n_ICU" variable_2="n_ICU"/>
+        <map_variables variable_1="p_ICU" variable_2="p_ICU"/>
+        <map_variables variable_1="R_0" variable_2="R_0"/>
+    </connection>
+    <connection>
+        <map_components component_1="Parameters_CHC" component_2="CHC"/>
+        <map_variables variable_1="N" variable_2="N"/>
+        <map_variables variable_1="IFR_0" variable_2="IFR_0"/>
+        <map_variables variable_1="IFR_1" variable_2="IFR_1"/>
+        <map_variables variable_1="epsilon" variable_2="epsilon"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="delta" variable_2="delta"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="c" variable_2="c"/>
+        <map_variables variable_1="n_ICU" variable_2="n_ICU"/>
+        <map_variables variable_1="p_ICU" variable_2="p_ICU"/>
+        <map_variables variable_1="R_0" variable_2="R_0"/>
+    </connection>
+    <connection>
+        <map_components component_1="Auckland" component_2="AKL"/>
+        <map_variables variable_1="S" variable_2="S"/>
+        <map_variables variable_1="E" variable_2="E"/>
+        <map_variables variable_1="I_p" variable_2="I_p"/>
+        <map_variables variable_1="I_u" variable_2="I_u"/>
+        <map_variables variable_1="I_c" variable_2="I_c"/>
+        <map_variables variable_1="I" variable_2="I"/>
+        <map_variables variable_1="R_u" variable_2="R_u"/>
+        <map_variables variable_1="R_c" variable_2="R_c"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="D" variable_2="D"/>
+        <map_variables variable_1="IFR" variable_2="IFR"/>
+        <map_variables variable_1="beta" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="Hamilton" component_2="HML"/>
+        <map_variables variable_1="S" variable_2="S"/>
+        <map_variables variable_1="E" variable_2="E"/>
+        <map_variables variable_1="I_p" variable_2="I_p"/>
+        <map_variables variable_1="I_u" variable_2="I_u"/>
+        <map_variables variable_1="I_c" variable_2="I_c"/>
+        <map_variables variable_1="I" variable_2="I"/>
+        <map_variables variable_1="R_u" variable_2="R_u"/>
+        <map_variables variable_1="R_c" variable_2="R_c"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="D" variable_2="D"/>
+        <map_variables variable_1="IFR" variable_2="IFR"/>
+        <map_variables variable_1="beta" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="Tauranga" component_2="TRG"/>
+        <map_variables variable_1="S" variable_2="S"/>
+        <map_variables variable_1="E" variable_2="E"/>
+        <map_variables variable_1="I_p" variable_2="I_p"/>
+        <map_variables variable_1="I_u" variable_2="I_u"/>
+        <map_variables variable_1="I_c" variable_2="I_c"/>
+        <map_variables variable_1="I" variable_2="I"/>
+        <map_variables variable_1="R_u" variable_2="R_u"/>
+        <map_variables variable_1="R_c" variable_2="R_c"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="D" variable_2="D"/>
+        <map_variables variable_1="IFR" variable_2="IFR"/>
+        <map_variables variable_1="beta" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="Wellington" component_2="WLG"/>
+        <map_variables variable_1="S" variable_2="S"/>
+        <map_variables variable_1="E" variable_2="E"/>
+        <map_variables variable_1="I_p" variable_2="I_p"/>
+        <map_variables variable_1="I_u" variable_2="I_u"/>
+        <map_variables variable_1="I_c" variable_2="I_c"/>
+        <map_variables variable_1="I" variable_2="I"/>
+        <map_variables variable_1="R_u" variable_2="R_u"/>
+        <map_variables variable_1="R_c" variable_2="R_c"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="D" variable_2="D"/>
+        <map_variables variable_1="IFR" variable_2="IFR"/>
+        <map_variables variable_1="beta" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="Christchurch" component_2="CHC"/>
+        <map_variables variable_1="S" variable_2="S"/>
+        <map_variables variable_1="E" variable_2="E"/>
+        <map_variables variable_1="I_p" variable_2="I_p"/>
+        <map_variables variable_1="I_u" variable_2="I_u"/>
+        <map_variables variable_1="I_c" variable_2="I_c"/>
+        <map_variables variable_1="I" variable_2="I"/>
+        <map_variables variable_1="R_u" variable_2="R_u"/>
+        <map_variables variable_1="R_c" variable_2="R_c"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="D" variable_2="D"/>
+        <map_variables variable_1="IFR" variable_2="IFR"/>
+        <map_variables variable_1="beta" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="AKL" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="HML" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="TRG" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="WLG" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="CHC" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="AKL"/>
+        <map_variables variable_1="R_AKL" variable_2="R"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="HML"/>
+        <map_variables variable_1="R_HML" variable_2="R"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="WLG"/>
+        <map_variables variable_1="R_WLG" variable_2="R"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="TRG"/>
+        <map_variables variable_1="R_TRG" variable_2="R"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="CHC"/>
+        <map_variables variable_1="R_CHC" variable_2="R"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="AKL"/>
+        <map_variables variable_1="D_AKL" variable_2="D"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="HML"/>
+        <map_variables variable_1="D_HML" variable_2="D"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="WLG"/>
+        <map_variables variable_1="D_WLG" variable_2="D"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="TRG"/>
+        <map_variables variable_1="D_TRG" variable_2="D"/>
+    </connection>
+    <connection>
+        <map_components component_1="NewZealand" component_2="CHC"/>
+        <map_variables variable_1="D_CHC" variable_2="D"/>
+    </connection>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="NewZealand">
+            <component_ref component="AKL"/>
+            <component_ref component="HML"/>
+            <component_ref component="TRG"/>
+            <component_ref component="WLG"/>
+            <component_ref component="CHC"/>
+            <component_ref component="Parameters_AKL"/>
+            <component_ref component="Parameters_HML"/>
+            <component_ref component="Parameters_TRG"/>
+            <component_ref component="Parameters_WLG"/>
+            <component_ref component="Parameters_CHC"/>
+        </component_ref>
+    </group>
+</model>
