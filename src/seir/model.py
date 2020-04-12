@@ -23,10 +23,14 @@ class Model:
 
         # Reset and run our SEIR simulation.
 
-        self.simulation.data().set_ending_point(sim_duration)
-
         self.simulation.reset()  # In case another simulation had already been run.
-        self.simulation.run()
+
+        while sim_duration > 0:
+            self.simulation.data().set_ending_point(1 if sim_duration >= 1 else sim_duration)
+
+            self.simulation.run()
+
+            sim_duration -= 1
 
         # Retrieve the results of the simulation.
 
