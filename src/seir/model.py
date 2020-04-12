@@ -8,7 +8,7 @@ class Model:
     https://cpb-ap-se2.wpmucdn.com/blogs.auckland.ac.nz/dist/d/75/files/2017/01/Covid19_SEIR_model.pdf.
     """
 
-    def __init__(self, sim_duration=300):
+    def __init__(self):
         # Initialise our SEIR simulation.
 
         self.simulation = oc.open_simulation(
