@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Parameters" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <component name="Parameters_AKL">
+        <variable initial_value="1500000" name="N" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.01" name="IFR_0" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.02" name="IFR_1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.15" name="epsilon" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.25" name="alpha" public_interface="out" units="per_day"/>
+        <variable initial_value="1.0" name="delta" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="gamma" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="c" public_interface="out" units="per_day"/>
+        <variable initial_value="80" name="n_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0125" name="p_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.05" name="p_hosp" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.5" name="R_0" public_interface="out" units="dimensionless"/>
+    </component>
+    <component name="Parameters_HML">
+        <variable initial_value="170000" name="N" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.01" name="IFR_0" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.02" name="IFR_1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.15" name="epsilon" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.25" name="alpha" public_interface="out" units="per_day"/>
+        <variable initial_value="1.0" name="delta" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="gamma" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="c" public_interface="out" units="per_day"/>
+        <variable initial_value="80" name="n_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0125" name="p_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.05" name="p_hosp" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.5" name="R_0" public_interface="out" units="dimensionless"/>
+    </component>
+    <component name="Parameters_TRG">
+        <variable initial_value="135000" name="N" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.01" name="IFR_0" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.02" name="IFR_1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.15" name="epsilon" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.25" name="alpha" public_interface="out" units="per_day"/>
+        <variable initial_value="1.0" name="delta" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="gamma" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="c" public_interface="out" units="per_day"/>
+        <variable initial_value="80" name="n_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0125" name="p_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.05" name="p_hosp" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.5" name="R_0" public_interface="out" units="dimensionless"/>
+    </component>
+    <component name="Parameters_WLG">
+        <variable initial_value="220000" name="N" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.01" name="IFR_0" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.02" name="IFR_1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.15" name="epsilon" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.25" name="alpha" public_interface="out" units="per_day"/>
+        <variable initial_value="1.0" name="delta" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="gamma" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="c" public_interface="out" units="per_day"/>
+        <variable initial_value="80" name="n_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0125" name="p_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.05" name="p_hosp" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.5" name="R_0" public_interface="out" units="dimensionless"/>
+    </component>
+    <component name="Parameters_CHC">
+        <variable initial_value="380000" name="N" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.01" name="IFR_0" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.02" name="IFR_1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.15" name="epsilon" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.25" name="alpha" public_interface="out" units="per_day"/>
+        <variable initial_value="1.0" name="delta" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="gamma" public_interface="out" units="per_day"/>
+        <variable initial_value="0.1" name="c" public_interface="out" units="per_day"/>
+        <variable initial_value="80" name="n_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0125" name="p_ICU" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.05" name="p_hosp" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.5" name="R_0" public_interface="out" units="dimensionless"/>
+    </component>
+</model>

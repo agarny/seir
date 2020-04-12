@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Units" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <units name="day">
+        <unit multiplier="86400" units="second"/>
+    </units>
+    <units name="per_day">
+        <unit exponent="-1" units="day"/>
+    </units>
+</model>

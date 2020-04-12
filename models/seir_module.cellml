@@ -1,74 +1,55 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <model name="COVID_model" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
-    <units name="day">
-        <unit multiplier="86400" units="second"/>
-    </units>
-    <units name="per_day">
-        <unit exponent="-1" multiplier="86400" units="second"/>
-    </units>
-    <component name="environment">
-        <variable name="time" public_interface="out" units="day"/>
-    </component>
     <component name="main">
         <!--/////////////// Variables /////////////////-->
         <variable name="t" public_interface="in" units="day"/>
         <!-- Susceptible-->
-        <variable initial_value="0.999996" name="S" units="dimensionless"/>
+        <variable initial_value="1.0" name="S" public_interface="out" units="dimensionless"/>
         <!-- Exposed-->
-        <variable initial_value="0.000004" name="E" units="dimensionless"/>
+        <variable initial_value="0" name="E" public_interface="out" units="dimensionless"/>
         <!-- Pre-Symptomatic-->
-        <variable initial_value="0" name="I_p" units="dimensionless"/>
-        <!-- Quarantined-->
-        <variable initial_value="0" name="Q" units="dimensionless"/>
+        <variable initial_value="0" name="I_p" public_interface="out" units="dimensionless"/>
         <!-- Infectious, untested-->
-        <variable initial_value="0" name="I_u" units="dimensionless"/>
+        <variable initial_value="0" name="I_u" public_interface="out" units="dimensionless"/>
         <!-- Infectious, tested-->
-        <variable initial_value="0" name="I_c" units="dimensionless"/>
+        <variable initial_value="0" name="I_c" public_interface="out" units="dimensionless"/>
         <!-- Infectious, total-->
-        <variable name="I" units="dimensionless"/>
+        <variable name="I" public_interface="out" units="dimensionless"/>
         <!-- Recovered, untested-->
-        <variable initial_value="0" name="R_u" units="dimensionless"/>
+        <variable initial_value="0" name="R_u" public_interface="out" units="dimensionless"/>
         <!-- Recovered, tested-->
-        <variable initial_value="0" name="R_c" units="dimensionless"/>
-        <!-- Recovered from Quarantined-->
-        <variable initial_value="0" name="R_q" units="dimensionless"/>
+        <variable initial_value="0" name="R_c" public_interface="out" units="dimensionless"/>
         <!-- Recovered, total-->
-        <variable name="R" units="dimensionless"/>
+        <variable name="R" public_interface="out" units="dimensionless"/>
         <!-- Deaths-->
-        <variable name="D" units="dimensionless"/>
-        <!-- Population Size-->
-        <variable initial_value="5000000" name="N" units="dimensionless"/>
+        <variable name="D" public_interface="out" units="dimensionless"/>
         <!-- Infection Fatality Rate-->
-        <variable name="IFR" units="dimensionless"/>
-        <!--/////////////// Parameters /////////////////-->
-        <!-- Infection Fatality Rate (when ICU is under max capacity)-->
-        <variable initial_value="0.01" name="IFR_0" units="dimensionless"/>
-        <!-- Infection Fatality Rate (for infectious exceeding ICU capacity)-->
-        <variable initial_value="0.02" name="IFR_1" units="dimensionless"/>
+        <variable name="IFR" public_interface="out" units="dimensionless"/>
         <!-- Transmission Coefficient-->
-        <variable name="beta" units="per_day"/>
+        <variable name="beta" public_interface="out" units="per_day"/>
+        <!--/////////////// Parameters /////////////////
+ Population Size-->
+        <variable name="N" public_interface="in" units="dimensionless"/>
+        <!-- Infection Fatality Rate (when ICU is under max capacity)-->
+        <variable name="IFR_0" public_interface="in" units="dimensionless"/>
+        <!-- Infection Fatality Rate (for infectious exceeding ICU capacity)-->
+        <variable name="IFR_1" public_interface="in" units="dimensionless"/>
         <!-- Relative Infectiousness in Pre-Symptomatic Period-->
-        <variable initial_value="0.15" name="epsilon" units="dimensionless"/>
+        <variable name="epsilon" public_interface="in" units="dimensionless"/>
         <!-- E->P Transition Rate-->
-        <variable initial_value="0.25" name="alpha" units="per_day"/>
+        <variable name="alpha" public_interface="in" units="per_day"/>
         <!-- P->I Transition Rate-->
-        <variable initial_value="1.0" name="delta" units="per_day"/>
+        <variable name="delta" public_interface="in" units="per_day"/>
         <!-- I->R Transition Rate-->
-        <variable initial_value="0.1" name="gamma" units="per_day"/>
+        <variable name="gamma" public_interface="in" units="per_day"/>
         <!-- Testing Rate for Symptomatic Infections-->
-        <variable initial_value="0.1" name="c" units="per_day"/>
+        <variable name="c" public_interface="in" units="per_day"/>
         <!-- Estimated ICU Maximum Capacity-->
-        <variable initial_value="500" name="n_ICU" units="dimensionless"/>
+        <variable name="n_ICU" public_interface="in" units="dimensionless"/>
         <!-- Proportion of Total Infections Requiring ICU-->
-        <variable initial_value="0.0125" name="p_ICU" units="dimensionless"/>
-        <!-- Proportion of Total Infections Requiring Hospitalisation-->
-        <variable initial_value="0.05" name="p_hosp" units="dimensionless"/>
+        <variable name="p_ICU" public_interface="in" units="dimensionless"/>
         <!-- Basic Reproduction Number-->
-        <variable initial_value="2.5" name="R_0" units="dimensionless"/>
-        <!-- Testing Time-->
-        <variable initial_value="0.1" name="tt" units="per_day"/>
-        <!-- Recovery Time in Quarantine-->
-        <variable initial_value="0.07142" name="rtq" units="per_day"/>
+        <variable name="R_0" public_interface="in" units="dimensionless"/>
         <!--/////////////// System of ODEs /////////////////-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -111,71 +92,25 @@
                 <apply>
                     <minus/>
                     <apply>
-                        <minus/>
+                        <times/>
+                        <ci>beta</ci>
+                        <ci>S</ci>
                         <apply>
-                            <times/>
-                            <ci>beta</ci>
-                            <ci>S</ci>
+                            <plus/>
                             <apply>
-                                <plus/>
-                                <apply>
-                                    <times/>
-                                    <ci>epsilon</ci>
-                                    <ci>I_p</ci>
-                                </apply>
-                                <ci>I_u</ci>
-                                <ci>I_c</ci>
+                                <times/>
+                                <ci>epsilon</ci>
+                                <ci>I_p</ci>
                             </apply>
-                        </apply>
-                        <apply>
-                            <times/>
-                            <ci>alpha</ci>
-                            <ci>E</ci>
+                            <ci>I_u</ci>
+                            <ci>I_c</ci>
                         </apply>
                     </apply>
                     <apply>
                         <times/>
-                        <ci>tt</ci>
+                        <ci>alpha</ci>
                         <ci>E</ci>
                     </apply>
-                </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>t</ci>
-                    </bvar>
-                    <ci>Q</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <apply>
-                        <times/>
-                        <ci>tt</ci>
-                        <ci>E</ci>
-                    </apply>
-                    <apply>
-                        <times/>
-                        <ci>rtq</ci>
-                        <ci>Q</ci>
-                    </apply>
-                </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>t</ci>
-                    </bvar>
-                    <ci>R_q</ci>
-                </apply>
-                <apply>
-                    <times/>
-                    <ci>rtq</ci>
-                    <ci>Q</ci>
                 </apply>
             </apply>
             <apply>
@@ -308,28 +243,20 @@
                                         <minus/>
                                         <apply>
                                             <minus/>
-                                            <apply>
-                                                <minus/>
-                                                <apply>
-                                                    <minus/>
-                                                    <cn cellml:units="dimensionless">1</cn>
-                                                    <ci>S</ci>
-                                                </apply>
-                                                <ci>E</ci>
-                                            </apply>
-                                            <ci>I_p</ci>
+                                            <cn cellml:units="dimensionless">1</cn>
+                                            <ci>S</ci>
                                         </apply>
-                                        <ci>I_u</ci>
+                                        <ci>E</ci>
                                     </apply>
-                                    <ci>I_c</ci>
+                                    <ci>I_p</ci>
                                 </apply>
-                                <ci>R_u</ci>
+                                <ci>I_u</ci>
                             </apply>
-                            <ci>R_c</ci>
+                            <ci>I_c</ci>
                         </apply>
-                        <ci>R_q</ci>
+                        <ci>R_u</ci>
                     </apply>
-                    <ci>Q</ci>
+                    <ci>R_c</ci>
                 </apply>
             </apply>
             <apply>
@@ -339,7 +266,6 @@
                     <plus/>
                     <ci>I_c</ci>
                     <ci>I_u</ci>
-                    <ci>I_p</ci>
                 </apply>
             </apply>
             <apply>
@@ -349,7 +275,6 @@
                     <plus/>
                     <ci>R_c</ci>
                     <ci>R_u</ci>
-                    <ci>R_q</ci>
                 </apply>
             </apply>
             <apply>
@@ -418,8 +343,4 @@
             </apply>
         </math>
     </component>
-    <connection>
-        <map_components component_1="main" component_2="environment"/>
-        <map_variables variable_1="t" variable_2="time"/>
-    </connection>
 </model>
