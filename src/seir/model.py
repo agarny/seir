@@ -81,7 +81,7 @@ class Model:
             # Update our simulation results using the results of the current
             # simulation.
 
-            voi_values = np.append(voi_values, run_nb+voi.values())
+            voi_values = np.append(voi_values, run_nb + voi.values())
             s_values = np.append(s_values, s.values())
             e_values = np.append(e_values, e.values())
             i_c_values = np.append(i_c_values, i_c.values())
