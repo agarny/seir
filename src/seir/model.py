@@ -13,7 +13,7 @@ class Model:
     def __init__(self):
         # Initialise our SEIR simulation.
 
-        self.simulation = oc.open_simulation(os.path.dirname(os.path.realpath(__file__)) + '/models/seir.sedml')
+        self.simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
 
     def run(self, sim_duration=300):
         # Make sure that we were given a valid simulation duration.
