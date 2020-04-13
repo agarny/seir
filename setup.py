@@ -3,9 +3,9 @@ import os
 
 from setuptools import setup, find_packages
 
-# Copy our model files to our SEIR package.
-# Note: the idea is to package our model files without the need for our `models`
-#       directory to be under our `src/seir` directory.
+# Copy the contents of the `models` directory to the `src/seir` directory.
+# Note: the idea is to be able to package our model files without the need for
+#       our original `models` directory to be under our `src/seir` directory.
 
 CWD = os.getcwd()
 
