@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import opencor as oc
 
@@ -11,8 +13,7 @@ class Model:
     def __init__(self):
         # Initialise our SEIR simulation.
 
-        self.simulation = oc.open_simulation(
-            'https://raw.githubusercontent.com/ABI-Covid-19/seir/master/models/seir.sedml')
+        self.simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
 
     def run(self, sim_duration=300):
         # Make sure that we were given a valid simulation duration.
@@ -81,7 +82,7 @@ class Model:
             # Update our simulation results using the results of the current
             # simulation.
 
-            voi_values = np.append(voi_values, run_nb+voi.values())
+            voi_values = np.append(voi_values, run_nb + voi.values())
             s_values = np.append(s_values, s.values())
             e_values = np.append(e_values, e.values())
             i_c_values = np.append(i_c_values, i_c.values())
