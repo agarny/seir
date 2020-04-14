@@ -15,6 +15,49 @@ class Model:
 
         self.simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
 
+        # Keep track of various model parameters.
+
+        results = self.simulation.results()
+
+        states = results.states()
+        algebraic = results.algebraic()
+
+        self.voi = results.voi()
+        self.voi_values = np.array([])
+
+        self.s = states['main/S']
+        self.s_values = np.array([])
+
+        self.e = states['main/E']
+        self.e_values = np.array([])
+
+        self.i_c = states['main/I_c']
+        self.i_c_values = np.array([])
+
+        self.i_p = states['main/I_p']
+        self.i_p_values = np.array([])
+
+        self.i_u = states['main/I_u']
+        self.i_u_values = np.array([])
+
+        self.r_c = states['main/R_c']
+        self.r_c_values = np.array([])
+
+        self.r_u = states['main/R_u']
+        self.r_u_values = np.array([])
+
+        self.i = algebraic['main/I']
+        self.i_values = np.array([])
+
+        self.r = algebraic['main/R']
+        self.r_values = np.array([])
+
+        self.d = algebraic['main/D']
+        self.d_values = np.array([])
+
+        self.ifr = algebraic['main/IFR']
+        self.ifr_values = np.array([])
+
     def run(self, sim_duration=300):
         # Make sure that we were given a valid simulation duration.
 
@@ -29,47 +72,6 @@ class Model:
 
         run_nb = 0
 
-        results = self.simulation.results()
-
-        states = results.states()
-        algebraic = results.algebraic()
-
-        voi = results.voi()
-        voi_values = np.array([])
-
-        s = states['main/S']
-        s_values = np.array([])
-
-        e = states['main/E']
-        e_values = np.array([])
-
-        i_c = states['main/I_c']
-        i_c_values = np.array([])
-
-        i_p = states['main/I_p']
-        i_p_values = np.array([])
-
-        i_u = states['main/I_u']
-        i_u_values = np.array([])
-
-        r_c = states['main/R_c']
-        r_c_values = np.array([])
-
-        r_u = states['main/R_u']
-        r_u_values = np.array([])
-
-        i = algebraic['main/I']
-        i_values = np.array([])
-
-        r = algebraic['main/R']
-        r_values = np.array([])
-
-        d = algebraic['main/D']
-        d_values = np.array([])
-
-        ifr = algebraic['main/IFR']
-        ifr_values = np.array([])
-
         while sim_duration > 0:
             # Run the simulation one day at a time.
 
@@ -82,18 +84,18 @@ class Model:
             # Update our simulation results using the results of the current
             # simulation.
 
-            voi_values = np.append(voi_values, run_nb + voi.values())
-            s_values = np.append(s_values, s.values())
-            e_values = np.append(e_values, e.values())
-            i_c_values = np.append(i_c_values, i_c.values())
-            i_p_values = np.append(i_p_values, i_p.values())
-            i_u_values = np.append(i_u_values, i_u.values())
-            r_c_values = np.append(r_c_values, r_c.values())
-            r_u_values = np.append(r_u_values, r_u.values())
-            i_values = np.append(i_values, i.values())
-            r_values = np.append(r_values, r.values())
-            d_values = np.append(d_values, d.values())
-            ifr_values = np.append(ifr_values, ifr.values())
+            self.voi_values = np.append(self.voi_values, run_nb + self.voi.values())
+            self.s_values = np.append(self.s_values, self.s.values())
+            self.e_values = np.append(self.e_values, self.e.values())
+            self.i_c_values = np.append(self.i_c_values, self.i_c.values())
+            self.i_p_values = np.append(self.i_p_values, self.i_p.values())
+            self.i_u_values = np.append(self.i_u_values, self.i_u.values())
+            self.r_c_values = np.append(self.r_c_values, self.r_c.values())
+            self.r_u_values = np.append(self.r_u_values, self.r_u.values())
+            self.i_values = np.append(self.i_values, self.i.values())
+            self.r_values = np.append(self.r_values, self.r.values())
+            self.d_values = np.append(self.d_values, self.d.values())
+            self.ifr_values = np.append(self.ifr_values, self.ifr.values())
 
             run_nb += 1
 
@@ -105,28 +107,28 @@ class Model:
         plt.gcf().canvas.set_window_title('SEIR model')
 
         plt.subplot(4, 1, 1)
-        plt.plot(voi_values, s_values, label=s.name())
-        plt.plot(voi_values, e_values, label=e.name())
-        plt.plot(voi_values, i_p_values, label=i_p.name())
-        plt.plot(voi_values, i_values, label=i.name())
-        plt.plot(voi_values, r_values, label=r.name())
-        plt.plot(voi_values, d_values, label=d.name())
+        plt.plot(self.voi_values, self.s_values, label=self.s.name())
+        plt.plot(self.voi_values, self.e_values, label=self.e.name())
+        plt.plot(self.voi_values, self.i_p_values, label=self.i_p.name())
+        plt.plot(self.voi_values, self.i_values, label=self.i.name())
+        plt.plot(self.voi_values, self.r_values, label=self.r.name())
+        plt.plot(self.voi_values, self.d_values, label=self.d.name())
         plt.legend(loc='center left')
 
         plt.subplot(4, 1, 2)
-        plt.plot(voi_values, i_values, label=i.name())
-        plt.plot(voi_values, i_c_values, label=i_c.name())
-        plt.plot(voi_values, i_u_values, label=i_u.name())
+        plt.plot(self.voi_values, self.i_values, label=self.i.name())
+        plt.plot(self.voi_values, self.i_c_values, label=self.i_c.name())
+        plt.plot(self.voi_values, self.i_u_values, label=self.i_u.name())
         plt.legend(loc='center left')
 
         plt.subplot(4, 1, 3)
-        plt.plot(voi_values, r_values, label=r.name())
-        plt.plot(voi_values, r_c_values, label=r_c.name())
-        plt.plot(voi_values, r_u_values, label=r_u.name())
+        plt.plot(self.voi_values, self.r_values, label=self.r.name())
+        plt.plot(self.voi_values, self.r_c_values, label=self.r_c.name())
+        plt.plot(self.voi_values, self.r_u_values, label=self.r_u.name())
         plt.legend(loc='center left')
 
         plt.subplot(4, 1, 4)
-        plt.plot(voi_values, ifr_values, label=ifr.name())
+        plt.plot(self.voi_values, self.ifr_values, label=self.ifr.name())
         plt.legend(loc='center left')
         plt.xlabel('time (day)')
 
