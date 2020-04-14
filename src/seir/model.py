@@ -1,6 +1,7 @@
 import os
 from enum import Enum, auto
 
+import matplotlib.pyplot as plt
 import numpy as np
 import opencor as oc
 
@@ -116,9 +117,8 @@ class Model:
 
             run_nb += 1
 
+    def plot(self):
         # Plot the results.
-
-        import matplotlib.pyplot as plt
 
         plt.clf()  # In case there is already a Matplotlib window.
         plt.gcf().canvas.set_window_title('SEIR model')
