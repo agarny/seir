@@ -14,7 +14,8 @@ class Model:
 
     class Parameter:
         """
-        A model parameter, i.e. either a state variable or an algebraic variable.
+        A model parameter, i.e. either a VOI, a state variable or an algebraic
+        variable.
         """
 
         class Kind(Enum):
@@ -209,4 +210,5 @@ class Model:
 
     def ifr(self):
         # Return our IFR data, i.e. infection fatality rate.
+
         return self.ifr
