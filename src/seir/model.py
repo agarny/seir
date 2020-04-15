@@ -150,3 +150,62 @@ class Model:
         plt.xlabel('time (day)')
 
         plt.show()
+
+    def voi(self):
+        # Return our VOI data.
+
+        return self.voi
+
+    def s(self):
+        # Return our S data, i.e. susceptible.
+
+        return self.s
+
+    def e(self):
+        # Return our E data, i.e. exposed.
+
+        return self.e
+
+    def i_c(self):
+        # Return our I_c data, i.e. infectious, tested.
+
+        return self.i_c
+
+    def i_p(self):
+        # Return our I_p data, i.e. pre-symptomatic.
+
+        return self.i_p
+
+    def i_u(self):
+        # Return our I_u data, i.e. infectious, untested.
+
+        return self.i_u
+
+    def r_c(self):
+        # Return our R_c data, i.e. recovered, tested.
+
+        return self.r_c
+
+    def r_u(self):
+        # Return our R_u data, i.e. recovered, untested.
+
+        return self.r_u
+
+    def i(self):
+        # Return our I data, i.e. infectious, total.
+
+        return self.i
+
+    def r(self):
+        # Return our R data, i.e. recovered, total.
+
+        return self.r
+
+    def d(self):
+        # Return our D data, i.e. deaths.
+
+        return self.d
+
+    def ifr(self):
+        # Return our IFR data, i.e. infection fatality rate.
+        return self.ifr
