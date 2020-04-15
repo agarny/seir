@@ -73,20 +73,35 @@ class Model:
         states = results.states()
         algebraic = results.algebraic()
 
-        self.voi = self.Parameter(self.Parameter.Kind.VOI, results.voi())
+        self.__voi = self.Parameter(self.Parameter.Kind.VOI, results.voi())
 
-        self.s = self.Parameter(self.Parameter.Kind.STATE, states['main/S'])
-        self.e = self.Parameter(self.Parameter.Kind.STATE, states['main/E'])
-        self.i_c = self.Parameter(self.Parameter.Kind.STATE, states['main/I_c'])
-        self.i_p = self.Parameter(self.Parameter.Kind.STATE, states['main/I_p'])
-        self.i_u = self.Parameter(self.Parameter.Kind.STATE, states['main/I_u'])
-        self.r_c = self.Parameter(self.Parameter.Kind.STATE, states['main/R_c'])
-        self.r_u = self.Parameter(self.Parameter.Kind.STATE, states['main/R_u'])
+        self.__s = self.Parameter(self.Parameter.Kind.STATE, states['main/S'])
+        self.__e = self.Parameter(self.Parameter.Kind.STATE, states['main/E'])
+        self.__i_c = self.Parameter(self.Parameter.Kind.STATE, states['main/I_c'])
+        self.__i_p = self.Parameter(self.Parameter.Kind.STATE, states['main/I_p'])
+        self.__i_u = self.Parameter(self.Parameter.Kind.STATE, states['main/I_u'])
+        self.__r_c = self.Parameter(self.Parameter.Kind.STATE, states['main/R_c'])
+        self.__r_u = self.Parameter(self.Parameter.Kind.STATE, states['main/R_u'])
 
-        self.i = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/I'])
-        self.r = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/R'])
-        self.d = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/D'])
-        self.ifr = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/IFR'])
+        self.__i = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/I'])
+        self.__r = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/R'])
+        self.__d = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/D'])
+        self.__ifr = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/IFR'])
+
+        self.parameters = {
+            self.__voi.name(): self.__voi,
+            self.__s.name(): self.__s,
+            self.__e.name(): self.__e,
+            self.__i_c.name(): self.__i_c,
+            self.__i_p.name(): self.__i_p,
+            self.__i_u.name(): self.__i_u,
+            self.__r_c.name(): self.__r_c,
+            self.__r_u.name(): self.__r_u,
+            self.__i.name(): self.__i,
+            self.__r.name(): self.__r,
+            self.__d.name(): self.__d,
+            self.__ifr.name(): self.__ifr,
+        }
 
     def run(self, sim_duration=300):
         # Make sure that we were given a valid simulation duration.
@@ -114,18 +129,18 @@ class Model:
             # Update our simulation results using the results of the current
             # simulation.
 
-            self.voi._Parameter__append_values(run_nb + self.voi._Parameter__parameter.values())
-            self.s._Parameter__append_values(self.s._Parameter__parameter.values())
-            self.e._Parameter__append_values(self.e._Parameter__parameter.values())
-            self.i_c._Parameter__append_values(self.i_c._Parameter__parameter.values())
-            self.i_p._Parameter__append_values(self.i_p._Parameter__parameter.values())
-            self.i_u._Parameter__append_values(self.i_u._Parameter__parameter.values())
-            self.r_c._Parameter__append_values(self.r_c._Parameter__parameter.values())
-            self.r_u._Parameter__append_values(self.r_u._Parameter__parameter.values())
-            self.i._Parameter__append_values(self.i._Parameter__parameter.values())
-            self.r._Parameter__append_values(self.r._Parameter__parameter.values())
-            self.d._Parameter__append_values(self.d._Parameter__parameter.values())
-            self.ifr._Parameter__append_values(self.ifr._Parameter__parameter.values())
+            self.__voi._Parameter__append_values(run_nb + self.__voi._Parameter__parameter.values())
+            self.__s._Parameter__append_values(self.__s._Parameter__parameter.values())
+            self.__e._Parameter__append_values(self.__e._Parameter__parameter.values())
+            self.__i_c._Parameter__append_values(self.__i_c._Parameter__parameter.values())
+            self.__i_p._Parameter__append_values(self.__i_p._Parameter__parameter.values())
+            self.__i_u._Parameter__append_values(self.__i_u._Parameter__parameter.values())
+            self.__r_c._Parameter__append_values(self.__r_c._Parameter__parameter.values())
+            self.__r_u._Parameter__append_values(self.__r_u._Parameter__parameter.values())
+            self.__i._Parameter__append_values(self.__i._Parameter__parameter.values())
+            self.__r._Parameter__append_values(self.__r._Parameter__parameter.values())
+            self.__d._Parameter__append_values(self.__d._Parameter__parameter.values())
+            self.__ifr._Parameter__append_values(self.__ifr._Parameter__parameter.values())
 
             run_nb += 1
 
@@ -136,28 +151,28 @@ class Model:
         plt.gcf().canvas.set_window_title('SEIR model')
 
         plt.subplot(4, 1, 1)
-        plt.plot(self.voi.values(), self.s.values(), label=self.s.name())
-        plt.plot(self.voi.values(), self.e.values(), label=self.e.name())
-        plt.plot(self.voi.values(), self.i_p.values(), label=self.i_p.name())
-        plt.plot(self.voi.values(), self.i.values(), label=self.i.name())
-        plt.plot(self.voi.values(), self.r.values(), label=self.r.name())
-        plt.plot(self.voi.values(), self.d.values(), label=self.d.name())
+        plt.plot(self.__voi.values(), self.__s.values(), label=self.__s.name())
+        plt.plot(self.__voi.values(), self.__e.values(), label=self.__e.name())
+        plt.plot(self.__voi.values(), self.__i_p.values(), label=self.__i_p.name())
+        plt.plot(self.__voi.values(), self.__i.values(), label=self.__i.name())
+        plt.plot(self.__voi.values(), self.__r.values(), label=self.__r.name())
+        plt.plot(self.__voi.values(), self.__d.values(), label=self.__d.name())
         plt.legend(loc='center left')
 
         plt.subplot(4, 1, 2)
-        plt.plot(self.voi.values(), self.i.values(), label=self.i.name())
-        plt.plot(self.voi.values(), self.i_c.values(), label=self.i_c.name())
-        plt.plot(self.voi.values(), self.i_u.values(), label=self.i_u.name())
+        plt.plot(self.__voi.values(), self.__i.values(), label=self.__i.name())
+        plt.plot(self.__voi.values(), self.__i_c.values(), label=self.__i_c.name())
+        plt.plot(self.__voi.values(), self.__i_u.values(), label=self.__i_u.name())
         plt.legend(loc='center left')
 
         plt.subplot(4, 1, 3)
-        plt.plot(self.voi.values(), self.r.values(), label=self.r.name())
-        plt.plot(self.voi.values(), self.r_c.values(), label=self.r_c.name())
-        plt.plot(self.voi.values(), self.r_u.values(), label=self.r_u.name())
+        plt.plot(self.__voi.values(), self.__r.values(), label=self.__r.name())
+        plt.plot(self.__voi.values(), self.__r_c.values(), label=self.__r_c.name())
+        plt.plot(self.__voi.values(), self.__r_u.values(), label=self.__r_u.name())
         plt.legend(loc='center left')
 
         plt.subplot(4, 1, 4)
-        plt.plot(self.voi.values(), self.ifr.values(), label=self.ifr.name())
+        plt.plot(self.__voi.values(), self.__ifr.values(), label=self.__ifr.name())
         plt.legend(loc='center left')
         plt.xlabel('time (day)')
 
