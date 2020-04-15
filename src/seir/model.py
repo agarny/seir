@@ -26,29 +26,29 @@ class Model:
         def __init__(self, kind, parameter):
             # Initialise our model parameter.
 
-            self._kind = kind
-            self._parameter = parameter
-            self._values = np.array([])
+            self.__kind = kind
+            self.__parameter = parameter
+            self.__values = np.array([])
 
         def kind(self):
             # Return our kind.
 
-            return self._kind
+            return self.__kind
 
         def name(self):
             # Return our name.
 
-            return self._parameter.name()
+            return self.__parameter.name()
 
         def values(self):
             # Return our values.
 
-            return self._values
+            return self.__values
 
-        def _append_values(self, values):
+        def __append_values(self, values):
             # Append the given values to our internal values.
 
-            self._values = np.append(self._values, values)
+            self.__values = np.append(self.__values, values)
 
     def __init__(self):
         # Create (i.e. open) our SEIR simulation.
@@ -57,9 +57,9 @@ class Model:
 
         # Initialise (i.e. reset) our simulation.
 
-        self._reset()
+        self.__reset()
 
-    def _reset(self):
+    def __reset(self):
         # Reset our SEIR simulation and clear all of its results (in case
         # another simulation has already been run).
 
@@ -98,7 +98,7 @@ class Model:
 
         # Reset and run our SEIR simulation.
 
-        self._reset()
+        self.__reset()
 
         run_nb = 0
 
@@ -114,18 +114,18 @@ class Model:
             # Update our simulation results using the results of the current
             # simulation.
 
-            self.voi._append_values(run_nb + self.voi._parameter.values())
-            self.s._append_values(self.s._parameter.values())
-            self.e._append_values(self.e._parameter.values())
-            self.i_c._append_values(self.i_c._parameter.values())
-            self.i_p._append_values(self.i_p._parameter.values())
-            self.i_u._append_values(self.i_u._parameter.values())
-            self.r_c._append_values(self.r_c._parameter.values())
-            self.r_u._append_values(self.r_u._parameter.values())
-            self.i._append_values(self.i._parameter.values())
-            self.r._append_values(self.r._parameter.values())
-            self.d._append_values(self.d._parameter.values())
-            self.ifr._append_values(self.ifr._parameter.values())
+            self.voi._Parameter__append_values(run_nb + self.voi._Parameter__parameter.values())
+            self.s._Parameter__append_values(self.s._Parameter__parameter.values())
+            self.e._Parameter__append_values(self.e._Parameter__parameter.values())
+            self.i_c._Parameter__append_values(self.i_c._Parameter__parameter.values())
+            self.i_p._Parameter__append_values(self.i_p._Parameter__parameter.values())
+            self.i_u._Parameter__append_values(self.i_u._Parameter__parameter.values())
+            self.r_c._Parameter__append_values(self.r_c._Parameter__parameter.values())
+            self.r_u._Parameter__append_values(self.r_u._Parameter__parameter.values())
+            self.i._Parameter__append_values(self.i._Parameter__parameter.values())
+            self.r._Parameter__append_values(self.r._Parameter__parameter.values())
+            self.d._Parameter__append_values(self.d._Parameter__parameter.values())
+            self.ifr._Parameter__append_values(self.ifr._Parameter__parameter.values())
 
             run_nb += 1
 
