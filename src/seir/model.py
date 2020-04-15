@@ -53,11 +53,11 @@ class Model:
     def __init__(self):
         # Initialise our SEIR simulation.
 
-        self.simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
+        self._simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
 
         # Keep track of various model parameters.
 
-        results = self.simulation.results()
+        results = self._simulation.results()
 
         states = results.states()
         algebraic = results.algebraic()
@@ -88,16 +88,16 @@ class Model:
         # Reset (in case another simulation has already been run) and run our
         # SEIR simulation.
 
-        self.simulation.reset()
+        self._simulation.reset()
 
         run_nb = 0
 
         while sim_duration > 0:
             # Run the simulation one day at a time.
 
-            self.simulation.data().set_ending_point(1 if sim_duration >= 1 else sim_duration)
+            self._simulation.data().set_ending_point(1 if sim_duration >= 1 else sim_duration)
 
-            self.simulation.run()
+            self._simulation.run()
 
             sim_duration -= 1
 
