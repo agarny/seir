@@ -51,9 +51,19 @@ class Model:
             self._values = np.append(self._values, values)
 
     def __init__(self):
-        # Initialise our SEIR simulation.
+        # Create (i.e. open) our SEIR simulation.
 
         self._simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
+
+        # Initialise (i.e. reset) our simulation.
+
+        self._reset()
+
+    def _reset(self):
+        # Reset (in case another simulation has already been run) our SEIR
+        # simulation.
+
+        self._simulation.reset()
 
         # Keep track of various model parameters.
 
@@ -85,10 +95,9 @@ class Model:
 
             return
 
-        # Reset (in case another simulation has already been run) and run our
-        # SEIR simulation.
+        # Reset and run our SEIR simulation.
 
-        self._simulation.reset()
+        self._reset()
 
         run_nb = 0
 
