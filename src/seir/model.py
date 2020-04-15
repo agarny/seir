@@ -84,9 +84,10 @@ class Model:
 
             return
 
-        # Reset and run our SEIR simulation.
+        # Reset (in case another simulation has already been run) and run our
+        # SEIR simulation.
 
-        self.simulation.reset()  # In case another simulation had already been run.
+        self.simulation.reset()
 
         run_nb = 0
 
