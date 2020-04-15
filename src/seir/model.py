@@ -57,9 +57,9 @@ class Model:
 
         # Initialise (i.e. reset) our simulation.
 
-        self.__reset()
+        self.reset()
 
-    def __reset(self):
+    def reset(self):
         # Reset our SEIR simulation and clear all of its results (in case
         # another simulation has already been run).
 
@@ -111,9 +111,7 @@ class Model:
 
             return
 
-        # Reset and run our SEIR simulation.
-
-        self.__reset()
+        # Run our SEIR simulation.
 
         run_nb = 0
 

@@ -28,12 +28,13 @@ From OpenCOR's ``Python Console`` window::
  # Create an instance of the SEIR model.
  m = seir.Model()
 
- # (Re-)run the model for 300 (default), 150 and 450 days.
+ # Run the model for 300 (default) and plot its results.
  m.run()
- m.run(150)
- m.run(450)
+ m.plot()
 
- # Plot the results of the simulation.
+ # Re-run the model for 150 days and plot its results.
+ m.reset()
+ m.run(150)
  m.plot()
 
  # Output the kind, name and values of the model's time parameter.
