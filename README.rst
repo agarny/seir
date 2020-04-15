@@ -26,9 +26,11 @@ From OpenCOR's ``Python Console`` window::
 
  m = seir.Model()  # Create an instance of the SEIR model.
 
- m.run()  # Run the simulation for 300 days (default).
+ m.run();  # Run the simulation for 300 days (default).
  m.run(150)  # Re-run the simulation for 150 days.
  m.run(450)  # Re-run the simulation for 450 days.
+
+ m.plot()  # Plot the simulation results.
 
 For the first run, you should get something like:
 
