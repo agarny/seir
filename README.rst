@@ -22,13 +22,28 @@ Use
 
 From OpenCOR's ``Python Console`` window::
 
- import seir  # Import the SEIR module.
+ # Import the SEIR module.
+ import seir
 
- m = seir.Model()  # Create an instance of the SEIR model.
+ # Create an instance of the SEIR model.
+ m = seir.Model()
 
- m.run()  # Run the simulation for 300 days (default).
- m.run(150)  # Re-run the simulation for 150 days.
- m.run(450)  # Re-run the simulation for 450 days.
+ # Run the model for 300 (default) and plot its results.
+ m.run()
+ m.plot()
+
+ # Re-run the model for 150 days and plot its results.
+ m.reset()
+ m.run(150)
+ m.plot()
+
+ # Output the kind, name and values of the model's time parameter.
+ t = m.parameters['time']
+ print(' [', t.kind(), '] ', t.name(), ': ', t.values(), sep='')
+
+ # Output the kind, name and values of all the model's parameters.
+ for p in m.parameters.values():
+     print(' [', p.kind(), '] ', p.name(), ': ', p.values(), sep='')
 
 For the first run, you should get something like:
 
