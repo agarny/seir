@@ -17,13 +17,19 @@ setup(
     author='Alan Garny',
     author_email='a.garny@auckland.ac.nz',
     description='OpenCOR-based Python package to model Covid-19 using the SEIR model',
+    install_requires=[
+        'moh-data @ https://github.com/ABI-Covid-19/moh-data/archive/seir.tar.gz',
+    ],
     license='Apache 2.0',
     name='seir',
     packages=find_packages('src'),
     package_data={
-        'seir': ['models/*'],
+        'seir': [
+            'models/sird.cellml',
+            'models/sird.sedml',
+        ],
     },
     package_dir={'': 'src'},
     url='https://github.com/ABI-Covid-19/seir',
-    version='0.2.0',
+    version='0.3.0',
 )

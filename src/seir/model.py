@@ -2,15 +2,17 @@ import os
 from enum import Enum, auto
 
 import matplotlib.pyplot as plt
+import moh_data.main as md
 import numpy as np
 import opencor as oc
 
 
 class Model:
     """
-    SEIR model of Covid-19, as described at
-    https://cpb-ap-se2.wpmucdn.com/blogs.auckland.ac.nz/dist/d/75/files/2017/01/Covid19_SEIR_model.pdf.
+    SIRD model of Covid-19
     """
+
+    __moh_data = None
 
     class Parameter:
         """
@@ -50,17 +52,23 @@ class Model:
 
             self.__values = np.append(self.__values, values)
 
-    def __init__(self):
-        # Create (i.e. open) our SEIR simulation.
+    def __init__(self, use_moh_data=True):
+        # Retrieve some data from the MoH, if needed.
 
-        self.__simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/seir.sedml')
+        if use_moh_data and Model.__moh_data == None:
+            Model.__moh_data = md.Basic()
+
+        # Create (i.e. open) our SIRD simulation.
+
+        self.__use_moh_data = use_moh_data
+        self.__simulation = oc.open_simulation(os.path.dirname(__file__) + '/models/sird.sedml')
 
         # Initialise (i.e. reset) our simulation.
 
         self.reset()
 
     def reset(self):
-        # Reset our SEIR simulation and clear all of its results (in case
+        # Reset our SIRD simulation and clear all of its results (in case
         # another simulation has already been run).
 
         self.__simulation.reset()
@@ -68,42 +76,29 @@ class Model:
 
         # Keep track of various model parameters.
 
-        results = self.__simulation.results()
+        data = self.__simulation.data()
+        self.__data_states = data.states()
 
+        results = self.__simulation.results()
         states = results.states()
         algebraic = results.algebraic()
 
         self.__voi = self.Parameter(self.Parameter.Kind.VOI, results.voi())
 
         self.__s = self.Parameter(self.Parameter.Kind.STATE, states['main/S'])
-        self.__e = self.Parameter(self.Parameter.Kind.STATE, states['main/E'])
-        self.__i_c = self.Parameter(self.Parameter.Kind.STATE, states['main/I_c'])
-        self.__i_p = self.Parameter(self.Parameter.Kind.STATE, states['main/I_p'])
-        self.__i_u = self.Parameter(self.Parameter.Kind.STATE, states['main/I_u'])
-        self.__r_c = self.Parameter(self.Parameter.Kind.STATE, states['main/R_c'])
-        self.__r_u = self.Parameter(self.Parameter.Kind.STATE, states['main/R_u'])
-
-        self.__i = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/I'])
-        self.__r = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/R'])
-        self.__d = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/D'])
-        self.__ifr = self.Parameter(self.Parameter.Kind.ALGEBRAIC, algebraic['main/IFR'])
+        self.__i = self.Parameter(self.Parameter.Kind.STATE, states['main/I'])
+        self.__r = self.Parameter(self.Parameter.Kind.STATE, states['main/R'])
+        self.__d = self.Parameter(self.Parameter.Kind.STATE, states['main/D'])
 
         self.parameters = {
             self.__voi.name(): self.__voi,
             self.__s.name(): self.__s,
-            self.__e.name(): self.__e,
-            self.__i_c.name(): self.__i_c,
-            self.__i_p.name(): self.__i_p,
-            self.__i_u.name(): self.__i_u,
-            self.__r_c.name(): self.__r_c,
-            self.__r_u.name(): self.__r_u,
             self.__i.name(): self.__i,
             self.__r.name(): self.__r,
             self.__d.name(): self.__d,
-            self.__ifr.name(): self.__ifr,
         }
 
-    def run(self, sim_duration=300):
+    def run(self, sim_duration=100):
         # Make sure that we were given a valid simulation duration.
 
         if sim_duration <= 0:
@@ -111,67 +106,47 @@ class Model:
 
             return
 
-        # Run our SEIR simulation.
+        # Run our SIRD simulation.
 
-        run_nb = 0
+        for i in range(sim_duration):
+            # Output the data from the MoH.
 
-        while sim_duration > 0:
+            if self.__use_moh_data:
+                try:
+                    moh_i_r_d = Model.__moh_data.get_cumulative_total_cases_on_day(i)
+                    moh_r = Model.__moh_data.get_cumulative_recovered_cases_on_day(i)
+                    moh_d = Model.__moh_data.get_cumulative_dead_cases_on_day(i)
+
+                    print('Day ', i, ': I=', moh_i_r_d - moh_r - moh_d, ' R=', moh_r, ' D=', moh_d, sep='')
+                except:
+                    pass
+
             # Run the simulation one day at a time.
 
             self.__simulation.data().set_ending_point(1 if sim_duration >= 1 else sim_duration)
 
             self.__simulation.run()
 
-            sim_duration -= 1
-
             # Update our simulation results using the results of the current
             # simulation.
 
-            self.__voi._Parameter__append_values(run_nb + self.__voi._Parameter__parameter.values())
+            self.__voi._Parameter__append_values(i + self.__voi._Parameter__parameter.values())
             self.__s._Parameter__append_values(self.__s._Parameter__parameter.values())
-            self.__e._Parameter__append_values(self.__e._Parameter__parameter.values())
-            self.__i_c._Parameter__append_values(self.__i_c._Parameter__parameter.values())
-            self.__i_p._Parameter__append_values(self.__i_p._Parameter__parameter.values())
-            self.__i_u._Parameter__append_values(self.__i_u._Parameter__parameter.values())
-            self.__r_c._Parameter__append_values(self.__r_c._Parameter__parameter.values())
-            self.__r_u._Parameter__append_values(self.__r_u._Parameter__parameter.values())
             self.__i._Parameter__append_values(self.__i._Parameter__parameter.values())
             self.__r._Parameter__append_values(self.__r._Parameter__parameter.values())
             self.__d._Parameter__append_values(self.__d._Parameter__parameter.values())
-            self.__ifr._Parameter__append_values(self.__ifr._Parameter__parameter.values())
-
-            run_nb += 1
 
     def plot(self):
         # Plot the results.
 
         plt.clf()  # In case there is already a Matplotlib window.
-        plt.gcf().canvas.set_window_title('SEIR model')
+        plt.gcf().canvas.set_window_title('SIRD model')
 
-        plt.subplot(4, 1, 1)
         plt.plot(self.__voi.values(), self.__s.values(), label=self.__s.name())
-        plt.plot(self.__voi.values(), self.__e.values(), label=self.__e.name())
-        plt.plot(self.__voi.values(), self.__i_p.values(), label=self.__i_p.name())
         plt.plot(self.__voi.values(), self.__i.values(), label=self.__i.name())
         plt.plot(self.__voi.values(), self.__r.values(), label=self.__r.name())
         plt.plot(self.__voi.values(), self.__d.values(), label=self.__d.name())
-        plt.legend(loc='center left')
-
-        plt.subplot(4, 1, 2)
-        plt.plot(self.__voi.values(), self.__i.values(), label=self.__i.name())
-        plt.plot(self.__voi.values(), self.__i_c.values(), label=self.__i_c.name())
-        plt.plot(self.__voi.values(), self.__i_u.values(), label=self.__i_u.name())
-        plt.legend(loc='center left')
-
-        plt.subplot(4, 1, 3)
-        plt.plot(self.__voi.values(), self.__r.values(), label=self.__r.name())
-        plt.plot(self.__voi.values(), self.__r_c.values(), label=self.__r_c.name())
-        plt.plot(self.__voi.values(), self.__r_u.values(), label=self.__r_u.name())
-        plt.legend(loc='center left')
-
-        plt.subplot(4, 1, 4)
-        plt.plot(self.__voi.values(), self.__ifr.values(), label=self.__ifr.name())
-        plt.legend(loc='center left')
+        plt.legend(loc='best')
         plt.xlabel('time (day)')
 
         plt.show()

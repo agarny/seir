@@ -28,7 +28,7 @@ From OpenCOR's ``Python Console`` window::
  # Create an instance of the SEIR model.
  m = seir.Model()
 
- # Run the model for 300 (default) and plot its results.
+ # Run the model for 100 days (default) and plot its results.
  m.run()
  m.plot()
 
