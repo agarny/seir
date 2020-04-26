@@ -142,10 +142,10 @@ class Model:
         plt.clf()  # In case there is already a Matplotlib window.
         plt.gcf().canvas.set_window_title('SIRD model')
 
-        plt.plot(self.__voi.values(), self.__s.values(), label=self.__s.name())
-        plt.plot(self.__voi.values(), self.__i.values(), label=self.__i.name())
-        plt.plot(self.__voi.values(), self.__r.values(), label=self.__r.name())
-        plt.plot(self.__voi.values(), self.__d.values(), label=self.__d.name())
+        plt.plot(self.__voi.values(), self.__s.values(), '#bd7100', label=self.__s.name())
+        plt.plot(self.__voi.values(), self.__i.values(), '#1a52d9', label=self.__i.name())
+        plt.plot(self.__voi.values(), self.__r.values(), '#20b0ed', label=self.__r.name())
+        plt.plot(self.__voi.values(), self.__d.values(), '#8e2f7e', label=self.__d.name())
         plt.legend(loc='best')
         plt.xlabel('time (day)')
 
