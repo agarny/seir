@@ -47,4 +47,4 @@ From OpenCOR's ``Python Console`` window::
 
 For the first run, you should get something like:
 
-.. image:: res/screenshot.png
+.. image:: res/figure.png
