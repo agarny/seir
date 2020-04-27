@@ -81,7 +81,6 @@ class Model:
 
         results = self.__simulation.results()
         states = results.states()
-        algebraic = results.algebraic()
 
         self.__voi = self.Parameter(self.Parameter.Kind.VOI, results.voi())
 
